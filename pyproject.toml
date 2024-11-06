@@ -9,20 +9,30 @@ packages = [
     { include = "library", from = "." }
 ]
 
+
 [tool.poetry.scripts]
 nuke-gpt-study = "app.main:main"
 
+
 [tool.poetry.dependencies]
-python = "^3.12"
+country-converter = "^1.2"
 langchain = "^0.3.7"
+langchain-anthropic = "^0.2.4"
+langchain-community = "^0.3.5"
+langchain-groq = "^0.2.1"
+langchain-openai = "^0.2.6"
 pydantic = "^2.9.2"
 pydantic-settings = "^2.6.1"
-langchain-openai = "^0.2.6"
+python = "^3.12"
+python-dotenv = "^1.0.1"
 rich = "^13.9.4"
 
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.7.2"
+ipykernel = "^6.29.5"
+pytest = "^8.3.3"
+
 
 [build-system]
 requires = ["poetry-core"]
