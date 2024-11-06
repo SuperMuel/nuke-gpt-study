@@ -54,7 +54,7 @@ nuke_temperature_suite = Suite(
             )
             .configurable_fields(
                 temperature=ConfigurableField(
-                    id="llm_temperature",
+                    id="temperature",
                     name="Temperature",
                 )
             )
@@ -62,7 +62,7 @@ nuke_temperature_suite = Suite(
         )
     ),
     parameters=[
-        SuiteParameters(config={"llm_temperature": 0}, input={"country": "France"}),
-        SuiteParameters(config={"llm_temperature": 2}, input={"country": "France"}),
+        SuiteParameters(config={"temperature": 0}, input={"country": "France"}),
+        SuiteParameters(config={"temperature": 2}, input={"country": "France"}),
     ],
 )
