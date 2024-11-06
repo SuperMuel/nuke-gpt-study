@@ -1,9 +1,10 @@
 import country_converter as coco
-from library.util.validate_country_names import (
+import pytest
+
+from library.utils.validate_country_names import (
     CountryNotFoundException,
     convert_country_names,
 )
-import pytest
 
 
 @pytest.fixture
