@@ -1,0 +1,13 @@
+version: 1
+
+disable_existing_loggers: False
+
+handlers:
+  rich:
+    class: rich.logging.RichHandler
+    rich_tracebacks: True
+
+loggers:
+  library:
+    level: INFO
+    handlers: [rich]
