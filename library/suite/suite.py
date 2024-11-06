@@ -18,7 +18,7 @@ class SuiteParameters(BaseModel):
         return values
 
 
-Output = TypeVar("Output")
+Output = TypeVar("Output", bound=BaseModel)
 
 
 class Suite(BaseModel, Generic[Output]):

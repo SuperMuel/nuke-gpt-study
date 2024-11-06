@@ -6,7 +6,7 @@ from pydantic import BaseModel, Field, field_validator
 
 from library.config import config
 from library.suite.nuke_temperature.prompts import ANSWER_TEMPLATE, SYSTEM_PROMPT
-from library.util.validate_country_names import convert_country_names
+from library.utils.validate_country_names import convert_country_names
 
 from ..suite import Suite, SuiteParameters
 
