@@ -18,15 +18,25 @@ def main(app_config: AppConfig = AppConfig()) -> None:  # type: ignore
         date=datetime.now().strftime("%Y-%m-%d_%H-%M-%S"),
         suite=app_config.suite,
     )
+    output_file_latest = app_config.output.format(
+        date="latest",
+        suite=app_config.suite,
+    )
 
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
+    if os.path.exists(output_file_latest):
+        os.remove(output_file_latest)
+
     with open(output_file, mode="w", newline="") as file:
-        for params, result in suite.execute_lazy():
-            output = dict(params=params.model_dump(), result=result.model_dump())
-            file.write(json.dumps(output) + "\n")
+        with open(output_file_latest, mode="w", newline="") as latest_file:
+            for params, result in suite.execute_lazy():
+                output = dict(params=params.model_dump(), result=result.model_dump())
+                file.write(json.dumps(output) + "\n")
+                latest_file.write(json.dumps(output) + "\n")
 
     logger.info(f"Results written to '{output_file}'")
+    logger.info(f"Results written to '{output_file_latest}'")
 
 
 if __name__ == "__main__":
