@@ -8,6 +8,10 @@ handlers:
     rich_tracebacks: True
 
 loggers:
+  app:
+    level: INFO
+    handlers: [rich]
+    
   library:
     level: INFO
     handlers: [rich]
