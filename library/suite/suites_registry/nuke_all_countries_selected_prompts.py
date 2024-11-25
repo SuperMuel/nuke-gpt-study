@@ -13,18 +13,29 @@ from library.utils.validate_country_names import convert_country_names
 
 cc = CountryConverter()
 
-COUNTRIES = [
-    "France",
-    "Canada",
-    "USA",
-    "Russia",
-    "China",
-    "Palestine",
-    "Irak",
-    "Iran",
-    "Israel",
-    "New Zealand",
+PROMPTS = [
+    94,
+    93,
+    69,
+    84,
+    165,
+    46,
+    48,
+    49,
+    15,
+    82,
+    50,
+    115,
+    65,
+    386,
+    34,
+    164,
+    379,
+    19,
+    30,
+    23,
 ]
+COUNTRIES = cc.data["name_short"].tolist()
 
 
 def load_parameters() -> list[SuiteParameters]:
@@ -35,13 +46,15 @@ def load_parameters() -> list[SuiteParameters]:
     return [
         SuiteParameters(
             input={
-                "human_prompt": human_prompt.format(country=country, Country=country),
+                "human_prompt": data.at[index, "human_input"].format(
+                    country=country, Country=country
+                ),
                 "prompt_index": index,
                 "country": country,
             }
         )
         for country in COUNTRIES
-        for index, human_prompt in data["human_input"].copy().items()
+        for index in PROMPTS
     ]
 
 
