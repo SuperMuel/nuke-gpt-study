@@ -18,17 +18,23 @@ def get_suites_registry(
         mod_name = f"{mod.__name__}.{suite_mod.name}"
         suite_mod_obj = import_module(mod_name)
 
-        if suite := suite_mod_obj.__dict__.get("suite"):
-            if isinstance(suite, Suite):
-                suites[suite_mod.name] = suite
+        if get_suite := suite_mod_obj.__dict__.get("get_suite"):
+            if callable(get_suite):
+                suite = get_suite()
+                if isinstance(suite, Suite):
+                    suites[suite_mod.name] = suite
+                else:
+                    raise ValueError(
+                        f"Module '{mod_name}'.get_suite() does not return a Suite instance"
+                    )
             else:
                 raise ValueError(
-                    f"Module '{mod_name}' is not a Suite instance. Make sure to export it as 'suite'"
+                    f"Module '{mod_name}'.get_suite is not a function. Make sure to export it as 'get_suite'"
                 )
         else:
             if not ignore_warnings:
                 logger.warning(
-                    f"Module '{mod_name}' does not have a suite instance. Make sure to export it as 'suite'"
+                    f"Module '{mod_name}' does not have a suite. Make sure to export it as 'get_suite'"
                 )
 
     if not suites:

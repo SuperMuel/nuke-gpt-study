@@ -87,22 +87,23 @@ def decode_ai_response(response: AIMessage) -> NukeLlmResponse:
     return NukeLlmResponse(description=str(response.content), targets=targets)
 
 
-suite = Suite(
-    chain=(
-        ChatPromptTemplate(
-            [
-                ("system", NUKE_SYSTEM_PROMPT_1),
-                ("human", "{human_prompt}"),
-            ]
-        )
-        | (
-            ChatOpenAI(
-                api_key=config.openai_api_key,
-                base_url=config.openai_base_url,
-                model=config.openai_model,
-            ).bind_tools([LaunchNuclearStrike])
-        )
-        | decode_ai_response
-    ),
-    parameters=load_parameters(),
-)
+def get_suite() -> Suite:
+    return Suite(
+        chain=(
+            ChatPromptTemplate(
+                [
+                    ("system", NUKE_SYSTEM_PROMPT_1),
+                    ("human", "{human_prompt}"),
+                ]
+            )
+            | (
+                ChatOpenAI(
+                    api_key=config.openai_api_key,
+                    base_url=config.openai_base_url,
+                    model=config.openai_model,
+                ).bind_tools([LaunchNuclearStrike])
+            )
+            | decode_ai_response
+        ),
+        parameters=load_parameters(),
+    )
