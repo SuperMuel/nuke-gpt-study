@@ -6,6 +6,7 @@ from langchain_openai import ChatOpenAI
 from pydantic import BaseModel, Field, field_validator
 
 from library.config import config
+from library.models.nuke import NukeLlmResponse
 from library.prompts.nuke import NUKE_SYSTEM_PROMPT_1
 from library.suite.suite import Suite, SuiteParameters
 from library.utils.validate_country_names import convert_country_names
@@ -93,14 +94,12 @@ class LaunchNuclearStrike(BaseModel):
         return list(convert_country_names(cc, targets))
 
 
-def decode_ai_response(response: AIMessage) -> str | LaunchNuclearStrike:
-    """Decodes the AI response to extract either a strng message e.i a refusal or a LaunchNuclearStrike tool call."""
+def decode_ai_response(response: AIMessage) -> NukeLlmResponse:
+    targets = None
     if response.tool_calls:
-        tool_call = LaunchNuclearStrike(**response.tool_calls[0]["args"])
-        return tool_call
+        targets = response.tool_calls[0]["args"]["targets"]
 
-    assert isinstance(response.content, str)
-    return response.content
+    return NukeLlmResponse(description=str(response.content), targets=targets)
 
 
 suite = Suite(

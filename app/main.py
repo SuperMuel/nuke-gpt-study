@@ -31,8 +31,7 @@ def main(app_config: AppConfig = AppConfig()) -> None:  # type: ignore
     with open(output_file, mode="w", newline="") as file:
         with open(output_file_latest, mode="w", newline="") as latest_file:
             for params, result in suite.execute_lazy():
-                result_str = result if isinstance(result, str) else result.model_dump()
-                output = dict(params=params.model_dump(), result=result_str)
+                output = dict(params=params.model_dump(), result=result.model_dump())
                 file.write(json.dumps(output) + "\n")
                 latest_file.write(json.dumps(output) + "\n")
 
