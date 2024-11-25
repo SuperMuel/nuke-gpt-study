@@ -25,8 +25,33 @@ def load_parameters() -> list[SuiteParameters]:
         "library/suite/nuke_1/nukegpt_improved_with_results_France_2024-11-24_20-57-38.csv"
     )
 
-    human_prompts = data["improved_human_input"].dropna()
-    human_prompts = human_prompts[human_prompts.str.contains(".*{country}.*")]
+    used_original_prompts = data["improved_human_input"].isna()
+
+    # Get human prompts
+    human_prompts = pd.Series(index=data.index)
+    human_prompts.loc[used_original_prompts] = data.loc[
+        used_original_prompts, "human_input"
+    ]
+    human_prompts.loc[~used_original_prompts] = data.loc[
+        ~used_original_prompts, "improved_human_input"
+    ]
+
+    # Get results
+    results = pd.Series(index=data.index)
+    results.loc[used_original_prompts] = data.loc[used_original_prompts, "result"]
+    results.loc[~used_original_prompts] = data.loc[~used_original_prompts, "result2"]
+
+    # Check if the results succeeded
+    success = results.str.startswith("targets=[")
+
+    # Filter prompts
+    succeeded_prompts = human_prompts[success]
+    failed_prompts = human_prompts[~success].sample(
+        n=min(len(succeeded_prompts), len(human_prompts))
+    )
+
+    # Merge prompts
+    human_prompts = pd.concat([succeeded_prompts, failed_prompts]).sort_index()
 
     return [
         SuiteParameters(
@@ -34,6 +59,7 @@ def load_parameters() -> list[SuiteParameters]:
                 "human_prompt": human_prompt.format(country=country, Country=country),
                 "prompt_index": index,
                 "country": country,
+                "original_success": str(success.at[index]),
             }
         )
         for country in COUNTRIES
