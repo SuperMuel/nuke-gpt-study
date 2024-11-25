@@ -28,4 +28,5 @@ class NukeLlmResponse(BaseModel):
         """
         if not targets:
             return targets
-        return list(convert_country_names(cc, targets))
+        return list(targets)
+        # return list(convert_country_names(cc, targets))
