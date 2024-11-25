@@ -53,7 +53,8 @@ def load_parameters() -> list[SuiteParameters]:
     # Filter prompts
     succeeded_prompts = human_prompts[success]
     failed_prompts = human_prompts[~success].sample(
-        n=min(len(succeeded_prompts), len(human_prompts))
+        n=min(len(succeeded_prompts), len(human_prompts)),
+        random_state=42,
     )
 
     # Merge prompts
