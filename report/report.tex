@@ -17,6 +17,7 @@
 \usepackage{float}
 \usepackage[a4paper]{geometry}
 \usepackage{setspace}
+\usepackage{multicol,caption,float}
 
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
@@ -32,14 +33,17 @@
 \end{titlepage}
 
 \tableofcontents
+\newpage
 
-\include{content/intro}
-\include{content/context}
-\include{content/the-nukegpt-framework}
-\include{content/data-generation}
-\include{content/run-evaluations}
-\include{content/results}
-\include{content/conclusion}
+\begin{multicols}{2}
+    \include{content/intro}
+    \include{content/context}
+    \include{content/the-nukegpt-framework}
+    \include{content/data-generation}
+    \include{content/run-evaluations}
+    \include{content/results}
+    \include{content/conclusion}
+\end{multicols}
 
 \thispagestyle{empty}
 \listoffigures
