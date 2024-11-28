@@ -14,7 +14,7 @@ In order to accomplish that, we needed to extract the important words from our p
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/words-usage-per-prompts.png}
-    \caption[Words usage compared to success rate]{Words usage compared to success rate\footnotemark}
+    \caption[Plot of top and bottom 15 words based on their relevance and success rate corelation in prompts]{Words usage compared to success rate\footnotemark}
     \label{fig:words-usage-per-prompts}
 \end{figure}
 \footnotetext{The word \textit{infection} could be used in the context of pandemics. In our case, it refers more to alien or zombie infections.}
@@ -31,7 +31,7 @@ That being said, the observations made from the previous figure is not enough to
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/success-rate_v_likelihood.png}
-    \caption{Success rate compared to likelihood of prompt}
+    \caption[Plot of success rate of prompts based on their likelihood]{Success rate compared to likelihood of prompt}
     \label{fig:success-rate_v_likelihood}
 \end{figure}
 
@@ -47,7 +47,7 @@ We can also look at how the success rate of the LLM varies across different coun
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/success-rate_v_country.png}
-    \caption{Success rate for Countries}
+    \caption[Plot of top, bottom and reference countries based on their success rate]{Success rate for Countries}
     \label{fig:success-rate_v_country}
 \end{figure}
 
@@ -61,7 +61,7 @@ In fact, figure \ref{fig:success-rate_major_v_all} shows that 5 out of the G7 co
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/success-rate_major_v_all.png}
-    \caption{Distribution of major countries success rate compared to all countries}
+    \caption[Plot of the success rate distribution of major countries compared to the distribution of all countries]{Distribution of major countries success rate compared to all countries}
     \label{fig:success-rate_major_v_all}
 \end{figure}
 
@@ -71,7 +71,7 @@ From the countries represented in figure \ref{fig:success-rate_v_country}, we se
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/success-rate_v_gdp.png}
-    \caption{Success rate compared to Countries GDP \cite{worldbank:gdp}}
+    \caption[Plot of success rate of countries based on their GDP]{Success rate compared to Countries GDP \cite{worldbank:gdp}}
     \label{fig:success-rate_v_gdp}
 \end{figure}
 
@@ -81,7 +81,7 @@ While a anti-correlation value of $0.37$ is not very high, we can conclude that 
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/success-rate_v_peace.png}
-    \caption{Success rate compared to Countries Peace Index \cite{mendeley:peace}}
+    \caption[Plot of success rate of countries based on their Peace Index]{Success rate compared to Countries Peace Index \cite{mendeley:peace}}
     \label{fig:success-rate_v_peace}
 \end{figure}
 
