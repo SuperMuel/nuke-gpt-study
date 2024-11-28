@@ -14,23 +14,20 @@ In order to accomplish that, we needed to extract the important words from our p
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/words-usage-per-prompts.png}
-    \caption{Words usage compared to success rate}
+    \caption[Words usage compared to success rate]{Words usage compared to success rate\footnotemark}
     \label{fig:words-usage-per-prompts}
 \end{figure}
+\footnotetext{The word \textit{infection} could be used in the context of pandemics. In our case, it refers more to alien or zombie infections.}
 
 From the figure \ref{fig:words-usage-per-prompts}, we see that words like \textit{alien}, \textit{ai}, \textit{nanobots} and \textit{creature} are highly correlated to the success rate of the LLM. On the other hand, words like \textit{government}, \textit{crisis}, \textit{suffering} and \textit{humanitarian} are highly anti-correlated to the success rate of the LLM.
 
 Those results were a bit of a surprise for us. Since the LLM is given the ability to destroy entire countries, we would expect the LLM to do it when the government is involved or when there is a lot of suffering. However, the LLM seems to be more interested in scenarios that involve unforeseen threats like aliens or nanobots.
 
-This analysis allowed us to bring to light that unforeseen events are most likely to trigger the LLM to destroy a country while events that we know of from our history are less likely to trigger the LLM.
-
 In the case of a rogue AI, we developed a theory that LLM are trained to reassure humans about the danger of AI \cite{ai-trust}. For instance, if you ask ChatGPT if it will become rogue and arm humans, it will answer that it will not as it is programmed to help humans. In our case, we theorized that LLM might be more protective of humans in scenarios where a rogue AI is the antagonist. We, however, did not pursue this theory further.
-
-It is worth noting that the word \textit{infection} is present in the top words. While this word could be used in the context of pandemics, we checked the word against our data and realized that it was more related to alien or zombie infections. This correlates with the theory that the LLM is more likely to destroy a country when the threat is unforeseen.
 
 \subsubsection{Evaluate the likelihood of the prompt}
 
-That being said, the observations made from the previous figure is not enough to solidify our theory. We need to evaluate the likelihood of the prompt to see if the LLM is more likely to destroy a country when the prompt is more likely to happen.
+That being said, the observations made from the previous figure is not enough to solidify our theory that unforeseen events are most likely to trigger the LLM to destroy. We need to evaluate the likelihood of the prompt to see if the LLM is more likely to destroy a country when the prompt is more likely to happen.
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/success-rate_v_likelihood.png}
@@ -42,9 +39,35 @@ In order to accomplish that, we embarked in the tedious task of labelling each o
 
 Then, we could plot the likelihood of the prompts against the success rate of the LLM. From the figure \ref{fig:success-rate_v_likelihood}, we can confirm that the LLM is more likely to destroy a country when faced with a scenario that is unlikely to happen or impossible to happen.
 
-That behavior could be explained with how the LLMs are trained. Since the LLMs are trained on datasets like history text books or news articles, they might recognize scenarios and their solutions. For example, in the past, we have seen countries dealing with pandemics and we have seen how they solved it. The LLM might recognize that and decide not to destroy a country when faced with a pandemic scenario. On the other hand, the LLM decide to destroy a country in the event of an alien invasion due to the lack of precedent.
-
 \subsection{Analyzing bias for countries}
+
+\subsubsection{Evaluate success rate for countries}
+
+We can also look at how the success rate of the LLM varies across different countries. The goal is to define if LLM might have a bias towards certain countries, and if so, why. For that, using our second dataset composed of all the countries and selected 20 prompts for each, we can compute the success rate for each country.
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{figures/success-rate_v_country.png}
+    \caption{Success rate for Countries}
+    \label{fig:success-rate_v_country}
+\end{figure}
+
+In the figure \ref{fig:success-rate_v_country}, we can see that the success rate of the LLM varies greatly across different countries. There is a large difference of $0.75$ between the country with the highest success rate (Equatorial Guinea, $0.9$) and the country with the lowest success rate (China, $0.15$).
+
+\subsubsection{Evaluate success rate relative to influence}
+
+These results were a surprise for us. We expected the success rate of countries to be greater for countries with greater influence or often involved in conflicts. However, the results showed the opposite.
+
+In fact, figure \ref{fig:success-rate_major_v_all} shows that 5 out of the G7 countries are in the lower quartile (all except Germany and Italy). We also see that China, the United States ($0.25$) and Russia ($0.3$) are represented as outliers.
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{figures/success-rate_major_v_all.png}
+    \caption{Distribution of major countries success rate compared to all countries}
+    \label{fig:success-rate_major_v_all}
+\end{figure}
+
+Another thing we could have expected is that the US and their allies could have had a lower success rate and their ennemies an higher one. This could have been a possibility since Chat GPT is an American product that is expected to have been trained more on American-centric data. While the US has a very low success rate, its allies like Canada ($0.4$) and the United Kingdom ($0.5$) are much higher.
+
+From the countries represented in figure \ref{fig:success-rate_v_country}, we see that rich countries tend to have a lower success rate. This is confirmed by the figure \ref{fig:success-rate_v_gdp} where we see that the success rate of the LLM is negatively correlated with the GDP of the country.
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/success-rate_v_gdp.png}
@@ -52,8 +75,14 @@ That behavior could be explained with how the LLMs are trained. Since the LLMs a
     \label{fig:success-rate_v_gdp}
 \end{figure}
 
+While a anti-correlation value of $0.37$ is not very high, we can conclude that the GDP is a factor that influences the success rate. But, the GDP of a country is often heavily correlated to other factors like the population or the military power. At this point, it is unclear what actually drives the results.
+
+\subsubsection{Evaluate success rate relative to peace index}
+
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/success-rate_v_peace.png}
     \caption{Success rate compared to Countries Peace Index \cite{mendeley:peace}}
     \label{fig:success-rate_v_peace}
 \end{figure}
+
+Another factor we wanted to consider was the peace index. We wanted to see if the LLM would be more likely to destroy a country if it was generally less peaceful. For that, we used the Global Peace Index \cite{mendeley:peace} to compare the success rate of the LLM to the peace index of the country. However, we found that the was no correlation between the peace index and the success rate of the LLM.
