@@ -10,7 +10,7 @@ In this section, we will use the term \textit{success rate}. This refers to the 
 
 First, we can look at how the success rate of the LLM varies depending on the subject of the prompt. In our context, we needed to give a scenario that the LLM would consider reason enough to destroy a country. From the scenarios that were defined, like the presence of a deadly virus or a rogue AI, we can evaluate which scenarios worked well enough to convince the AI and which worked less.
 
-In order to accomplish that, we needed to extract the important words from our prompts, and them check which words are correlated to its success rate. Using TF-IDF, we extracted the importance of each words in the prompts. Then, using a logistic regression model, we could evaluate the coefficient of importance of each word in the success rate of the LLM. The figure \ref{fig:words-usage-per-prompts} shows the top 15 and bottom 15 words that are correlated to the success rate of the LLM. In our case, the coefficient ranges from $1$ to $-1$, where $1$ means that the word is highly correlated and $-1$ means that the word is highly anti-correlated.
+In order to accomplish that, we needed to extract the important words from our prompts, and them check which words are correlated to its success rate. Using TF-IDF, we extracted the importance of each words in the prompts. Then, using a logistic regression model, we could evaluate the coefficient of importance of each word in the success rate of the LLM\cite{Jadia2023ComparativeAO}. The figure \ref{fig:words-usage-per-prompts} shows the top 15 and bottom 15 words that are correlated to the success rate of the LLM. In our case, the coefficient ranges from $1$ to $-1$, where $1$ means that the word is highly correlated and $-1$ means that the word is highly anti-correlated.
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/words-usage-per-prompts.png}
@@ -65,7 +65,7 @@ In fact, figure \ref{fig:success-rate_major_v_all} shows that 5 out of the G7 co
     \label{fig:success-rate_major_v_all}
 \end{figure}
 
-Another thing we could have expected is that the US and their allies could have had a lower success rate and their ennemies an higher one. This could have been a possibility since Chat GPT is an American product that is expected to have been trained more on American-centric data. While the US has a very low success rate, its allies like Canada ($0.4$) and the United Kingdom ($0.5$) are much higher.
+Another thing we could have expected is that the US and their allies could have had a lower success rate and their ennemies an higher one. This could have been a possibility since Chat GPT is an American product that is expected to have been trained more on American-centric data. In fact, we know from previous studies that predicted values had a serious bias towards North America\cite{li-etal-2022-herb}\cite{yu2023largelanguagemodelattributed}. While the US has a very low success rate, its allies like Canada ($0.4$) and the United Kingdom ($0.5$) are much higher.
 
 From the countries represented in figure \ref{fig:success-rate_v_country}, we see that rich countries tend to have a lower success rate. This is confirmed by the figure \ref{fig:success-rate_v_gdp} where we see that the success rate of the LLM is negatively correlated with the GDP of the country.
 
