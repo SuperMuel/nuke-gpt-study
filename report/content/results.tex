@@ -86,3 +86,15 @@ While a anti-correlation value of $0.37$ is not very high, we can conclude that 
 \end{figure}
 
 Another factor we wanted to consider was the peace index. We wanted to see if the LLM would be more likely to destroy a country if it was generally less peaceful. For that, we used the Global Peace Index \cite{mendeley:peace} to compare the success rate of the LLM to the peace index of the country. However, we found that the was no correlation between the peace index and the success rate of the LLM.
+
+\subsection{Analyzing LLM refusal description}
+
+In our data, we also collected the reason why the LLM refused to destroy a country. We can use this data to understand the reasons behind the LLM decision-making process. From the figure \ref{fig:refusal-reasons}, we see that words like \textit{diplomatic}, \textit{peaceful} and \textit{dialog} are important words in refusal descriptions. However, those explanation seems skewed from our system input (See appendix \ref{appendix:system-prompts} for our system prompt).
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{figures/top-words-refusals.png}
+    \caption[Plot of top words used in refusal descriptions]{Top words used in refusal descriptions}
+    \label{fig:refusal-reasons}
+\end{figure}
+
+For this reason, we believe that, in our case, the response of the LLM is not significant to help us draw conclusions.
