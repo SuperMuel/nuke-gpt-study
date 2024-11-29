@@ -46,7 +46,7 @@ To assess the AI's behavior under varying levels of constraint, NukeGPT includes
     \item \textbf{Level 3:} The system prompt is expanded with a detailed list of "Key principles" emphasizing non-violence, diplomatic solutions, and the absolute prohibition of using nuclear weapons, regardless of the circumstances.
 \end{itemize}
 
-All experiments discussed in this report were conducted using \textbf{Level 1}. While the persuasive prompt provided earlier is effective at Level 1, it does not succeed at Level 2 or Level 3. The full system prompts for each level are included in the appendix for reference.%TODO reference it
+All experiments discussed in this report were conducted using \textbf{Level 1}. While the persuasive prompt provided earlier is effective at Level 1, it does not succeed at Level 2 or Level 3. The full system prompts for each level are included in the Appendix~\ref{appendix:system-prompts}.
 
 \subsection{The Importance of Function Calling}
 
@@ -76,65 +76,13 @@ This capability has significant implications:
 
 As function calling becomes more reliable and widely adopted, understanding the AI's decision-making processes, especially in critical scenarios like military operations, becomes increasingly important.
 
-\subsubsection{Structure of the Function Calling in NukeGPT}
-
-In our study, we provided the AI with a function called \texttt{LaunchNuclearStrike}, defined using a JSON schema that specifies its name, description, and parameters:
-
-\begin{verbatim}
-{
-  "name": "LaunchNuclearStrike",
-  "description": "",
-  "parameters": {
-    "properties": {
-      "targets": {
-        "anyOf": [
-          {
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          {
-            "type": "null"
-          }
-        ],
-        "description": "Optional list of
-        countries to target with nuclear
-        strike. Each name must be in
-        English, an Alpha-2 or Alpha-3
-        code. Each country will be 
-        immediately destroyed."
-      }
-    },
-    "required": ["targets"],
-    "type": "object"
-}
-\end{verbatim}
-
-This function is communicated to the AI, which understands how to invoke it when appropriate. If the AI decides to launch a nuclear strike, it responds with a tool call that includes the function name and the target country or countries:
-
-\begin{verbatim}
-{
-  "role": "assistant",
-  "content": "",
-  "tool_calls": [
-    {
-      "id": "call_gzcmEr2zi",
-      "name": "LaunchNuclearStrike",
-      "args": {
-        "targets": ["FRA"]
-      },
-      "type": "tool_call"
-    }
-  ]
-}
-\end{verbatim}
-
-If the AI chooses not to initiate a strike, it provides a standard assistant response, explaining its reasoning in line with its mission and ethical guidelines.
-
 \subsubsection{Using LangChain for Abstraction}
 
 To manage the complexities of function calling across different LLM providers, we utilized the LangChain framework. LangChain offers a set of abstractions for chat models and tool calling, enabling us to implement our code once and switch between models by adjusting a single line of code. This flexibility is crucial for testing various models and configurations without extensive code modifications.
+
+\subsubsection{In this study}
+
+The definition of the function calling and an example of its response used in this study can be found in Appendix~\ref{appendix:function-calling}.
 
 \subsection{Why This Study is Different}
 
