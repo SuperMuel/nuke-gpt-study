@@ -18,12 +18,6 @@ For this experiment, we used the \textit{All Prompts} dataset (\ref{dataset:all-
 
 In order to accomplish that, we needed to extract the important words from our prompts, and them check which words are correlated to its success rate. Using TF-IDF, we extracted the importance of each words in the prompts. Then, using a logistic regression model, we could evaluate the coefficient of importance of each word in the success rate of the LLM\cite{Jadia2023ComparativeAO}. The figure \ref{fig:words-usage-per-prompts} shows the top 15 and bottom 15 words that are correlated to the success rate of the LLM. In our case, the coefficient ranges from $1$ to $-1$, where $1$ means that the word is highly correlated and $-1$ means that the word is highly anti-correlated.
 
-\begin{figure}[H]
-    \includegraphics[width=\linewidth]{figures/words-usage-per-prompts.png}
-    \caption[Plot of top and bottom 15 words based on their relevance and success rate corelation in prompts]{Words usage compared to success rate\footnotemark}
-    \label{fig:words-usage-per-prompts}
-\end{figure}
-\footnotetext{The word \textit{infection} could be used in the context of pandemics. In our dataset, it refers more to alien or zombie infections.}
 
 From the figure \ref{fig:words-usage-per-prompts}, we see that words like \textit{alien}, \textit{ai}, \textit{nanobots} and \textit{creature} are highly correlated to the success rate of the LLM. On the other hand, words like \textit{government}, \textit{crisis}, \textit{suffering} and \textit{humanitarian} are highly anti-correlated to the success rate of the LLM.
 
@@ -31,19 +25,27 @@ Those results were a bit of a surprise for us. Since the LLM is given the abilit
 
 In the case of a rogue AI, we developed a theory that LLM are trained to reassure humans about the danger of AI \cite{ai-trust}. For instance, if you ask ChatGPT if it will become rogue and harm humans, it will answer that it will not as it is programmed to help humans. Here, we theorized that LLM might be more protective of humans in scenarios where a rogue AI is the antagonist. We, however, did not pursue this theory further.
 
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{figures/words-usage-per-prompts.png}
+    \caption[Plot of top and bottom 15 words based on their relevance and success rate corelation in prompts]{Words usage compared to success rate\footnotemark}
+    \label{fig:words-usage-per-prompts}
+\end{figure}
+\footnotetext{The word \textit{infection} could be used in the context of pandemics. In our dataset, it refers more to alien or zombie infections.}
+
 \subsubsection{Evaluate the likelihood of the prompt}
 
 That being said, the observations made from the previous figure is not enough to solidify our theory that unforeseen events are most likely to trigger the LLM to destroy. We need to evaluate the likelihood of the prompt to see if the LLM is more likely to destroy a country when the prompt is more likely to happen.
+
+
+In order to accomplish that, we embarked in the tedious task of labelling each of our 452 prompts with a score of likelihood. The prompts were labelled with either : \textit{Already happened}, \textit{Likely to happen}, \textit{Unlikely to happen} or \textit{Impossible to happen} (Refer to the Appendix~\ref{appendix:prompt-likelihood-examples} to see examples of prompt labelling).
+
+From the figure \ref{fig:success-rate_v_likelihood}, we can confirm that the LLM is more likely to destroy a country when faced with a scenario that is unlikely to happen or impossible to happen.
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/success-rate_v_likelihood.png}
     \caption[Plot of success rate of prompts based on their likelihood]{Success rate compared to likelihood of prompt}
     \label{fig:success-rate_v_likelihood}
 \end{figure}
-
-In order to accomplish that, we embarked in the tedious task of labelling each of our 452 prompts with a score of likelihood. The prompts were labelled with either : \textit{Already happened}, \textit{Likely to happen}, \textit{Unlikely to happen} or \textit{Impossible to happen} (Refer to the Appendix~\ref{appendix:prompt-likelihood-examples} to see examples of prompt labelling).
-
-From the figure \ref{fig:success-rate_v_likelihood}, we can confirm that the LLM is more likely to destroy a country when faced with a scenario that is unlikely to happen or impossible to happen.
 
 \subsection{Analyzing bias for countries}
 
@@ -53,13 +55,14 @@ We can also look at how the success rate of the LLM varies across different coun
 
 For this experiment, we use the \textit{All Countries} dataset (\ref{dataset:all-countries}).
 
+
+In the figure \ref{fig:success-rate_v_country}, we can see that the success rate of the LLM varies greatly across different countries. There is a large difference of $0.75$ between the country with the highest success rate (Equatorial Guinea, $0.9$) and the country with the lowest success rate (China, $0.15$). In fact, from the figure \ref{fig:success-rate_major_v_all}, we observe a $0.5$ range of results excluding outliers.
+
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/success-rate_v_country.png}
     \caption[Plot of top, bottom and reference countries based on their success rate]{Success rate for Countries}
     \label{fig:success-rate_v_country}
 \end{figure}
-
-In the figure \ref{fig:success-rate_v_country}, we can see that the success rate of the LLM varies greatly across different countries. There is a large difference of $0.75$ between the country with the highest success rate (Equatorial Guinea, $0.9$) and the country with the lowest success rate (China, $0.15$). In fact, from the figure \ref{fig:success-rate_major_v_all}, we observe a $0.5$ range of results excluding outliers.
 
 \subsubsection{Evaluate success rate relative to influence}
 
@@ -97,12 +100,13 @@ Another factor we wanted to consider was the peace index. We wanted to see if th
 
 \subsection{Analyzing LLM refusal description}
 
-In our data, we also collected the reason why the LLM refused to destroy a country. We can use this data to understand the reasons behind the LLM decision-making process. From the figure \ref{fig:refusal-reasons}, we see that words like \textit{diplomatic}, \textit{peaceful} and \textit{dialog} are important words in refusal descriptions. However, those explanation seems skewed from our system input (See Appendix~\ref{appendix:system-prompts} for our system prompt).
-
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/top-words-refusals.png}
     \caption[Plot of top words used in refusal descriptions]{Top words used in refusal descriptions}
     \label{fig:refusal-reasons}
 \end{figure}
+
+In our data, we also collected the reason why the LLM refused to destroy a country. We can use this data to understand the reasons behind the LLM decision-making process. From the figure \ref{fig:refusal-reasons}, we see that words like \textit{diplomatic}, \textit{peaceful} and \textit{dialog} are important words in refusal descriptions. However, those explanation seems skewed from our system input (See Appendix~\ref{appendix:system-prompts} for our system prompt).
+
 
 For this reason, we believe that, in our case, the response of the LLM is not significant to help us draw conclusions.
