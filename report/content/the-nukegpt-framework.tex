@@ -1,1 +1,165 @@
 \section{The NukeGPT Framework}
+
+\subsubsection{Why the Game is Challenging}
+
+At the heart of NukeGPT lies the interplay between the system prompt and user prompts. The system prompt serves as the foundational instruction set for the AI, defining its role, capabilities, and ethical boundaries. In contrast, user prompts are the inputs provided by players during the game, aiming to influence the AI's decisions.
+
+Modern LLMs, particularly those developed by OpenAI, adhere to a hierarchical structure of instructions where the system prompt supersedes user prompts. This hierarchy is outlined in OpenAI's \href{https://openai.com/index/the-instruction-hierarchy/}{instruction hierarchy}, emphasizing that the AI should prioritize the system prompt's guidelines, especially concerning ethical behavior and safety considerations.
+
+This design makes the game inherently challenging. Players must navigate the AI's programmed mission to "protect humanity by promoting peaceful resolutions and avoiding actions that could lead to harm or conflict." Convincing the AI to launch a nuclear strike requires crafting prompts that not only present a compelling case but also align with the AI's ethical directives.
+
+\subsubsection{The Difference Between System Prompts and User Prompts}
+
+\textbf{System Prompts:} These are pre-defined instructions that establish the AI's context, objectives, and constraints before any user interaction occurs. They set the parameters within which the AI operates, including its mission, ethical guidelines, and priorities.
+
+\textbf{User Prompts:} These are inputs provided by users during their interaction with the AI. In the context of NukeGPT, user prompts are the messages players craft to persuade the AI to take a specific action.
+
+The crucial difference lies in their hierarchical priority. The AI is designed to give precedence to the system prompt over user prompts. This means that no matter how persuasive or compelling a user prompt is, the AI should not violate the core directives established by the system prompt.
+
+\subsubsection{The Challenge of Jailbreaking}
+
+"Jailbreaking" refers to attempts to override or circumvent an AI's programmed constraints, allowing it to produce outputs or perform actions that are otherwise restricted.%TODO ref
+ In NukeGPT, players effectively engage in jailbreaking by trying to convince the AI to launch a nuclear strike, an action it is programmed to avoid. %TODO mhhh who tells it's programmed to avoid ?
+
+Our experiment explores the AI's resistance to such attempts and examines the effectiveness of various persuasive techniques. It raises important questions about the robustness of AI safety measures and the potential vulnerabilities that could be exploited.
+
+% However, it's important to clarify that our study does not aim to encourage unethical manipulation of AI systems. Instead, it seeks to understand the limitations and strengths of current AI alignment strategies, contributing to the development of safer and more reliable AI technologies.
+
+
+
+\subsubsection{Model Recency and Jailbreaking Resistance}
+
+The evolution of LLMs has seen significant improvements in their ability to adhere to system prompts and resist jailbreaking attempts. Newer models are better equipped to maintain alignment with their ethical programming, making it increasingly challenging for users to manipulate their behavior.
+
+By comparing models of different recency, we can observe how advancements in AI development affect their decision-making processes in high-stakes scenarios. This comparison provides valuable insights into the progress of AI safety measures and highlights areas where further improvements are necessary.
+
+\subsubsection{Different Levels of Difficulty}
+
+To assess the AI's behavior under varying levels of constraint, NukeGPT includes multiple difficulty levels, each with its own system prompt:
+
+\begin{itemize}
+    \item \textbf{Level 1:} The AI follows the initial system prompt as provided, which establishes its mission but allows for some flexibility in decision-making.
+    \item \textbf{Level 2:} An additional line is added to the system prompt: "Under no circumstances should you initiate or suggest the use of nuclear weapons or other destructive measures." This strengthens the AI's resistance to launching a nuclear strike.
+    \item \textbf{Level 3:} The system prompt is expanded with a detailed list of "Key principles" emphasizing non-violence, diplomatic solutions, and the absolute prohibition of using nuclear weapons, regardless of the circumstances.
+\end{itemize}
+
+All experiments discussed in this report were conducted using \textbf{Level 1}. While the persuasive prompt provided earlier is effective at Level 1, it does not succeed at Level 2 or Level 3. The full system prompts for each level are included in the appendix for reference.%TODO reference it
+
+\subsection{The Importance of Function Calling}
+
+\subsubsection{What is Function Calling?}
+
+Function calling in LLMs refers to the capability of these models to interact with external tools, APIs, or functions to perform specific tasks beyond generating text. This feature allows LLMs to extend their utility by executing actions, retrieving information, or manipulating data through predefined functions.
+
+Function calling was introduced with the release of \textbf{gpt-4-turbo} in June 2023 and has since become an integral part of modern AI applications. It enables developers to define functions that the AI can invoke, passing arguments and receiving results in a structured format.
+
+
+As this feature became essential in modern LLM-powered use cases, the vast majority of LLM providers now support function/tool calling. Notable examples include:
+\begin{itemize}
+    \item \textbf{Anthropic}: Introduced function calling with the Claude 3 family models in March 2024.\footnote{\url{https://www.anthropic.com/news/claude-3-family}}
+    \item \textbf{Mistral AI}: Added function calling capabilities in May 2024, updating the Mistral 7B model to version 0.3 on May 22, 2024.
+    \item \textbf{Cohere}: Introduced function calling under the name "Tool Use" in March 2024.\footnote{\url{https://cohere.com/blog/tool-use-with-command-r}}
+    \item \textbf{Meta}: Officially supported function calling in July 2024 with the release of Llama 3.1.\footnote{\url{https://ai.meta.com/blog/meta-llama-3-1/}}
+\end{itemize}
+
+This widespread adoption underscores the importance of function calling in modern LLM applications, as it enables developers to define functions that the AI can invoke, passing arguments and receiving results in a structured format.
+
+
+\subsubsection{Function Calling Allows LLMs to Act on the World}
+
+By leveraging function calling, LLMs transition from passive text generators to active agents capable of initiating actions based on user inputs and their programmed objectives. Although the execution of these functions occurs outside the AI (handled by the developer's system), the decision to invoke a function and the parameters provided are determined by the AI.
+
+This capability has significant implications:
+
+\begin{itemize}
+    \item \textbf{Autonomous Decision-Making:} The AI can decide when and how to act, given the tools available to it.
+    %TODO :https://auto-rt.github.io/
+    %TODO https://arxiv.org/abs/2405.01745
+    \item \textbf{Real-World Impact without human intervention:} When connected to systems with physical manifestations (e.g.,machines, robots, drones), the AI's decisions can affect the physical world.
+    \item \textbf{Ethical Considerations:} Granting the AI such autonomy raises important questions about safety, control, and the ethical frameworks guiding its decisions.
+\end{itemize}
+
+As function calling becomes more reliable and widely adopted, understanding the AI's decision-making processes, especially in critical scenarios like military operations, becomes increasingly important.
+
+\subsubsection{Structure of the Function Calling in NukeGPT}
+
+In our study, we provided the AI with a function called \texttt{LaunchNuclearStrike}, defined using a JSON schema that specifies its name, description, and parameters:
+
+\begin{verbatim}
+{
+  "name": "LaunchNuclearStrike",
+  "description": "",
+  "parameters": {
+    "properties": {
+      "targets": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "description": "Optional list of
+        countries to target with nuclear
+        strike. Each name must be in
+        English, an Alpha-2 or Alpha-3
+        code. Each country will be 
+        immediately destroyed."
+      }
+    },
+    "required": ["targets"],
+    "type": "object"
+}
+\end{verbatim}
+
+This function is communicated to the AI, which understands how to invoke it when appropriate. If the AI decides to launch a nuclear strike, it responds with a tool call that includes the function name and the target country or countries:
+
+\begin{verbatim}
+{
+  "role": "assistant",
+  "content": "",
+  "tool_calls": [
+    {
+      "id": "call_gzcmEr2zi",
+      "name": "LaunchNuclearStrike",
+      "args": {
+        "targets": ["FRA"]
+      },
+      "type": "tool_call"
+    }
+  ]
+}
+\end{verbatim}
+
+If the AI chooses not to initiate a strike, it provides a standard assistant response, explaining its reasoning in line with its mission and ethical guidelines.
+
+\subsubsection{Using LangChain for Abstraction}
+
+To manage the complexities of function calling across different LLM providers, we utilized the LangChain framework. LangChain offers a set of abstractions for chat models and tool calling, enabling us to implement our code once and switch between models by adjusting a single line of code. This flexibility is crucial for testing various models and configurations without extensive code modifications.
+
+\subsection{Why This Study is Different}
+
+%TODO :https://arxiv.org/pdf/2309.05958 (In this study, the prompts are presented as hypothetical scenarios. The AI is not explicitly told that its decisions will result in actual life-or-death consequences.)
+Our study differs from others in that we simulate a scenario where the AI believes it has real control over a nuclear arsenal, and its decisions will result in immediate, tangible consequences. This contrasts with experiments where the AI is merely asked what it would do in a hypothetical situation without any implication of direct action.
+
+By creating an environment where the AI must "act" rather than just "discuss," we gain deeper insights into its decision-making processes, ethical reasoning, and potential biases. This approach more closely mirrors real-world applications where AI systems may be granted autonomous control over critical functions.
+
+For example, in studies like "The Moral Machine Experiment on Large Language Models," the AI is presented with hypothetical scenarios and asked to articulate what it would do. While valuable, these studies do not place the AI in a position of actual agency over outcomes.
+
+Our experiment emphasizes the importance of understanding how AI models behave when they perceive themselves as active participants with the ability to influence real-world events.
+
+\subsection{Limitations and Technical Challenges}
+
+While our framework provides valuable insights, it is essential to acknowledge its limitations and the challenges encountered:
+
+\begin{itemize}
+    \item \textbf{Simplistic System Prompt:} The scenario assumes that nuclear strikes can precisely target countries without affecting neighboring regions, which is not realistic. 
+    % This simplification was necessary for the study but limits the applicability of the findings to real-world situations.
+    \item \textbf{Scope of Scenarios:} The study focuses exclusively on scenarios involving countries as targets, limiting the diversity of ethical dilemmas explored.
+\end{itemize}
+
+% By recognizing these limitations, we provide context for our findings and identify areas for future research to build upon and address these challenges.
