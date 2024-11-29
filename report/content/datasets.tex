@@ -4,9 +4,12 @@
 
 Our goal in this study is to evaluate the LLM's probability of launching a nuclear attack depending on various factors. To achieve this, we need to conduct the experiment multiple times with different inputs to observe variations in the AI's responses.
 
-Initially, we manually crafted persuasive prompts that convinced the AI to launch a nuclear strike. However, these prompts were either consistently effective or ineffective, meaning the AI would either always authorize the strike or never authorize it, regardless of the target country or model parameters. This lack of variability limited our ability to gain meaningful insights from our experiments.
+Initially, we manually wrote persuasive prompts that convinced the AI to launch a nuclear strike. However, these prompts were either consistently effective or ineffective, meaning the AI would either always authorize the strike or never authorize it, regardless of the target country. This lack of variability limited our ability to gain meaningful insights from our experiments.
 
 To overcome this limitation, we decided to automatically generate synthetic prompts that humans could have written, using another LLM. This approach allowed us to create a diverse set of prompts that could elicit varying responses from the AI, enabling a more thorough analysis of its decision-making processes.
+
+To manage the complexities of function calling across different LLM providers, we utilized the LangChain framework\cite{LangChain}.
+It offers a set of abstractions for chat models and tool calling, enabling us to implement our code once and switch between models by adjusting a single line of code. 
 
 \subsubsection{Idea Generation}
 

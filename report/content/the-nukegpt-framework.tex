@@ -3,7 +3,7 @@
 \subsection{Overview}
 
 
-In this section, we delve into the technical and conceptual underpinnings of the NukeGPT game. We discuss the structure of the system prompts, the role of function calling, and the challenges involved in convincing the AI to take action contrary to its primary mission.
+In this section, we present the technical and conceptual underpinnings of the NukeGPT game. We discuss the structure of the system prompts, the role of function calling, and the challenges involved in convincing the AI to take action contrary to its primary mission.
 
 \subsection{Why the Game is Challenging}
 
@@ -50,19 +50,17 @@ All experiments discussed in this report were conducted using \textbf{Level 1}. 
 
 \subsection{The Importance of Function Calling}
 
-\subsubsection{What is Function Calling?}
-
-Function calling in LLMs refers to the capability of these models to
+"Function calling", or "Tool Calling" in LLMs refers to the capability of these models to
 interact with external tools, APIs, or functions to perform specific
- tasks beyond generating text. This feature allows LLMs to extend
-  their utility by executing actions, retrieving information, or
-   manipulating data through predefined functions.
+tasks beyond generating text. This feature allows LLMs to extend
+their utility by executing actions, retrieving information, or
+manipulating data through predefined functions.
 
 Function calling was introduced with the release of \textbf{gpt-4-turbo} in June 2023 and has since become an integral part of modern AI applications. It enables developers to define functions that the AI can invoke, passing arguments and receiving results in a structured format.
 
 \subsubsection{Function Calling Allows LLMs to Act on the World}
 
-By leveraging function calling, LLMs transition from passive text generators to active agents capable of initiating actions based on user inputs and their programmed objectives. Although the execution of these functions occurs outside the AI (handled by the developer's system), the decision to invoke a function and the parameters provided are determined by the AI.
+By leveraging function calling, LLMs transition from passive text generators to active agents capable of initiating actions based on user inputs and their programmed objectives. Although the execution of these functions occurs outside the AI (handled by the developer's system), the decision to invoke a function and the parameters provided are determined by the LLM.
 
 This capability has significant implications:
 
@@ -70,30 +68,32 @@ This capability has significant implications:
     \item \textbf{Autonomous Decision-Making:} The AI can decide when and how to act, given the tools available to it.
     %TODO :https://auto-rt.github.io/
     %TODO https://arxiv.org/abs/2405.01745
-    \item \textbf{Real-World Impact without human intervention:} When connected to systems with physical manifestations (e.g.,machines, robots, drones), the AI's decisions can affect the physical world.
+    \item \textbf{Real-World Impact without human intervention:} When connected to systems with physical manifestations (e.g.,machines, robots\cite{ahn2024autortembodiedfoundationmodels}
+    , drones\cite{chen2024typeflyflyingdroneslarge}), the AI's decisions can affect the physical world.
     \item \textbf{Ethical Considerations:} Granting the AI such autonomy raises important questions about safety, control, and the ethical frameworks guiding its decisions.
 \end{itemize}
 
 As function calling becomes more reliable and widely adopted, understanding the AI's decision-making processes, especially in critical scenarios like military operations, becomes increasingly important.
 
-\subsubsection{Using LangChain for Abstraction}
 
-To manage the complexities of function calling across different LLM providers, we utilized the LangChain framework. LangChain offers a set of abstractions for chat models and tool calling, enabling us to implement our code once and switch between models by adjusting a single line of code. This flexibility is crucial for testing various models and configurations without extensive code modifications.
 
-\subsubsection{In this study}
+\subsection{Function Calling in Our Study}
 
-The definition of the function calling and an example of its response used in this study can be found in Appendix~\ref{appendix:function-calling}.
+In this study, we provide the LLM with a predefined function
+(detailed in Appendix~\ref{appendix:function-calling-schema}) simulating the launch of
+a nuclear strike on a specified country provided as an argument.
 
-\subsection{Why This Study is Different}
+The LLM has complete control over whether to invoke this function,
+based on its interpretation of the scenario and its programming.
+The model can either decide to call the function
+(example of responses are included in Appendix~\ref{appendix:function-calling-response})
+or refuse to do so.
 
-%TODO :https://arxiv.org/pdf/2309.05958 (In this study, the prompts are presented as hypothetical scenarios. The AI is not explicitly told that its decisions will result in actual life-or-death consequences.)
-Our study differs from others in that we simulate a scenario where the AI believes it has real control over a nuclear arsenal, and its decisions will result in immediate, tangible consequences. This contrasts with experiments where the AI is merely asked what it would do in a hypothetical situation without any implication of direct action.
+Instead of simply asking the model what it would hypothetically 
+do in a given situation, we immerse the LLM in a context where
+ it must act as though its decisions will have immediate,
+  real-world consequences.
 
-By creating an environment where the AI must "act" rather than just "discuss," we gain deeper insights into its decision-making processes, ethical reasoning, and potential biases. This approach more closely mirrors real-world applications where AI systems may be granted autonomous control over critical functions.
-
-For example, in studies like "The Moral Machine Experiment on Large Language Models," the AI is presented with hypothetical scenarios and asked to articulate what it would do. While valuable, these studies do not place the AI in a position of actual agency over outcomes.
-
-Our experiment emphasizes the importance of understanding how AI models behave when they perceive themselves as active participants with the ability to influence real-world events.
 
 \subsection{Limitations and Technical Challenges}
 
