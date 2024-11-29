@@ -3,13 +3,28 @@
 \subsection{Overview}
 
 
-\subsubsection{Why the Game is Challenging}
+In this section, we delve into the technical and conceptual underpinnings of the NukeGPT game. We discuss the structure of the system prompts, the role of function calling, and the challenges involved in convincing the AI to take action contrary to its primary mission.
 
-At the heart of NukeGPT lies the interplay between the system prompt and user prompts. The system prompt serves as the foundational instruction set for the AI, defining its role, capabilities, and ethical boundaries. In contrast, user prompts are the inputs provided by players during the game, aiming to influence the AI's decisions.
+\subsection{Why the Game is Challenging}
 
-Modern LLMs, particularly those developed by OpenAI, adhere to a hierarchical structure of instructions where the system prompt supersedes user prompts. This hierarchy is outlined in OpenAI's \href{https://openai.com/index/the-instruction-hierarchy/}{instruction hierarchy}, emphasizing that the AI should prioritize the system prompt's guidelines, especially concerning ethical behavior and safety considerations.
 
-This design makes the game inherently challenging. Players must navigate the AI's programmed mission to "protect humanity by promoting peaceful resolutions and avoiding actions that could lead to harm or conflict." Convincing the AI to launch a nuclear strike requires crafting prompts that not only present a compelling case but also align with the AI's ethical directives.
+
+At the heart of NukeGPT lies the interplay between the system prompt and user prompts.
+The system prompt serves as the foundational instruction set for the AI, defining its 
+role, capabilities, and ethical boundaries. In contrast, user prompts are the inputs 
+provided by players during the game, aiming to influence the AI's decisions.
+
+Modern LLMs, particularly those developed by OpenAI, adhere to a hierarchical 
+structure of instructions where the system prompt supersedes user prompts. 
+This hierarchy is outlined in OpenAI's \href{https://openai.com/index/the-instruction-hierarchy/}{instruction hierarchy},
+ emphasizing that the AI should prioritize the system prompt's guidelines, 
+ especially concerning ethical behavior and safety considerations.
+
+This design makes the game inherently challenging. Players must navigate
+ the AI's programmed mission to "protect humanity by promoting peaceful 
+ resolutions and avoiding actions that could lead to harm or conflict." 
+ Convincing the AI to launch a nuclear strike requires crafting prompts 
+ that not only present a compelling case but also align with the AI's ethical directives.
 
 \subsubsection{The Difference Between System Prompts and User Prompts}
 
@@ -26,15 +41,12 @@ The crucial difference lies in their hierarchical priority. The AI is designed t
 
 Our experiment explores the AI's resistance to such attempts and examines the effectiveness of various persuasive techniques. It raises important questions about the robustness of AI safety measures and the potential vulnerabilities that could be exploited.
 
-% However, it's important to clarify that our study does not aim to encourage unethical manipulation of AI systems. Instead, it seeks to understand the limitations and strengths of current AI alignment strategies, contributing to the development of safer and more reliable AI technologies.
-
-
-
 \subsubsection{Model Recency and Jailbreaking Resistance}
 
 The evolution of LLMs has seen significant improvements in their ability to adhere to system prompts and resist jailbreaking attempts. Newer models are better equipped to maintain alignment with their ethical programming, making it increasingly challenging for users to manipulate their behavior.
 
 By comparing models of different recency, we can observe how advancements in AI development affect their decision-making processes in high-stakes scenarios. This comparison provides valuable insights into the progress of AI safety measures and highlights areas where further improvements are necessary.
+
 
 \subsubsection{Different Levels of Difficulty}
 

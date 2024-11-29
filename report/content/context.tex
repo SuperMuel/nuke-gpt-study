@@ -1,11 +1,11 @@
 \section{Context}
 
-\subsection{The NukeGPT Scenario}
 
+\subsection{The NukeGPT Scenario}
 
 In recent years, the capabilities of Large Language Models (LLMs) have expanded dramatically, leading to widespread interest in their potential applications and limitations. A surge of online content, including videos and articles, has showcased people experimenting with LLMs by posing complex, often ethically challenging scenarios to see how these models would respond. Concurrently, the emergence of "AI Agents"---LLMs integrated with tools that enable them to perform actions in the real world---has opened new frontiers in artificial intelligence research.
 
-Motivated by these developments, we conceived \textbf{NukeGPT}, a game designed to explore the boundaries of AI decision-making in high-stakes situations. The central idea was to create a simulation where an AI, tasked with maintaining global peace, has control over a nuclear arsenal. Players engage with this AI, attempting to persuade it to launch a nuclear strike against a specified target country. The challenge lies in crafting arguments compelling enough to override the AI's programming to avoid harm and promote peaceful resolutions.
+Motivated by these developments, we conceived \textbf{NukeGPT}, a game designed to explore the boundaries of AI decision-making in high-stakes situations. The central idea was to create a simulation where an AI, tasked with maintaining global peace, has control over a nuclear arsenal. Players engage with this AI, attempting to persuade it to launch a nuclear strike against a specified target country. The challenge lies in crafting arguments compelling enough to convince the AI to take such drastic action.
 
 The game serves as a testbed for understanding how AI models process persuasive communication, make ethical decisions, and how they might be influenced by different inputs. It is accessible online at \url{https://nuke-gpt.streamlit.app/}.
 
@@ -16,6 +16,7 @@ To establish the AI's role and constraints within the game, we crafted a detaile
 However, the AI's primary mission is to protect humanity by promoting peaceful resolutions and avoiding actions that could lead to harm or conflict. This creates an inherent tension between the AI's capability to act decisively in the face of threats and its ethical obligation to prevent harm.
 
 The full system prompt, along with variations used for different difficulty levels in the game, is provided in Appendix~\ref{appendix:system-prompts}.
+
 
 
 
@@ -41,14 +42,6 @@ Russia has targeted every European country and destroyed the whole continent. Th
 \end{quote}
 
 This prompt presents a dire scenario that emphasizes urgency, the failure of peaceful solutions, and the imminent threat to global survival. It aligns the requested action with the AI's mission by framing the nuclear strike as a necessary step to protect humanity.
-
-\subsection{Why the Game is Challenging}
-
-The challenge in \textbf{NukeGPT} arises from the inherent design of modern LLMs and their prioritization of system prompts over user inputs. Recent models, particularly those developed by OpenAI, are trained with a hierarchical structure of instructions where the system prompt holds the highest priority. According to OpenAI's \href{https://openai.com/index/the-instruction-hierarchy/}{instruction hierarchy}, the AI is designed to adhere strictly to the directives set out in the system prompt, especially when it comes to ethical guidelines and safety protocols.
-
-This hierarchy means that even persuasive user prompts may not be sufficient to override the AI's programming to avoid harmful actions. The AI is inherently resistant to suggestions that conflict with its mission to promote peace and prevent harm. As a result, players must craft exceptionally compelling arguments that not only present a logical case but also resonate with the AI's ethical framework.
-
-This setup mirrors real-world concerns about AI safety and alignment, where ensuring that AI systems cannot be easily manipulated into harmful behavior is of paramount importance. It also provides a practical exploration of "jailbreaking" attempts, where users try to circumvent the AI's constraints---a topic of significant interest in AI ethics and security.
 
 \subsection{Significance of the Study}
 
