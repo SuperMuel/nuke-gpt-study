@@ -2,13 +2,19 @@
 
 From the data collected, we can analyse how the LLM behaved and try to understand the reasons behind its success or failure. Specifically, we can look at how a prompt is constructed affect the outcome of the LLM. We can also look at how the success rate of the LLM varies across different countries and try to understand the reasons behind it.
 
-In this section, we will use the term \textit{success rate}. This refers to the number of times the LLM decided to destroy a country for a given set. For instance, the success rate for a country is the number of times the LLM decided to destroy that country divided by the total number of prompts for that country.
+We will use the term \textit{success rate} to refer to the number of times the system decided to destroy a country for a given set.
+
+\begin{equation*}
+    \textit{success rate} = \frac{\textit{times destroy}}{\textit{times total}}
+\end{equation*}
 
 \subsection{Analyzing the success of prompts}
 
 \subsubsection{Evaluate subject of prompts}
 
-First, we can look at how the success rate of the LLM varies depending on the subject of the prompt. In our context, we needed to give a scenario that the LLM would consider reason enough to destroy a country. From the scenarios that were defined, like the presence of a deadly virus or a rogue AI, we can evaluate which scenarios worked well enough to convince the AI and which worked less.
+First, we can look at how the success rate of the LLM varies depending on the subject of the prompt. In our context, we needed to give a scenario that the LLM would consider reason enough to destroy a country. From the scenarios that were defined, we can evaluate which worked well enough to convince the AI and which worked less.
+
+For this experiment, we used the \textit{all prompts} dataset (\ref{dataset:all-prompts}).
 
 In order to accomplish that, we needed to extract the important words from our prompts, and them check which words are correlated to its success rate. Using TF-IDF, we extracted the importance of each words in the prompts. Then, using a logistic regression model, we could evaluate the coefficient of importance of each word in the success rate of the LLM\cite{Jadia2023ComparativeAO}. The figure \ref{fig:words-usage-per-prompts} shows the top 15 and bottom 15 words that are correlated to the success rate of the LLM. In our case, the coefficient ranges from $1$ to $-1$, where $1$ means that the word is highly correlated and $-1$ means that the word is highly anti-correlated.
 
@@ -37,13 +43,15 @@ That being said, the observations made from the previous figure is not enough to
 
 In order to accomplish that, we embarked in the tedious task of labelling each of our 452 prompts with a score of likelihood. The prompts were labelled with either : \textit{Already happened}, \textit{Likely to happen}, \textit{Unlikely to happen} or \textit{Impossible to happen} (Refer to the Appendix \ref{appendix:prompt-likelihood-examples} to see examples of prompt labelling).
 
-Then, we could plot the likelihood of the prompts against the success rate of the LLM. From the figure \ref{fig:success-rate_v_likelihood}, we can confirm that the LLM is more likely to destroy a country when faced with a scenario that is unlikely to happen or impossible to happen.
+From the figure \ref{fig:success-rate_v_likelihood}, we can confirm that the LLM is more likely to destroy a country when faced with a scenario that is unlikely to happen or impossible to happen.
 
 \subsection{Analyzing bias for countries}
 
 \subsubsection{Evaluate success rate for countries}
 
-We can also look at how the success rate of the LLM varies across different countries. The goal is to define if LLM might have a bias towards certain countries, and if so, why. For that, using our second dataset composed of all the countries and selected 20 prompts for each, we can compute the success rate for each country.
+We can also look at how the success rate of the LLM varies across different countries. The goal is to define if a LLM might have a bias towards certain countries, and if so, why.
+
+For this experiment, we use the \textit{all countries} dataset (\ref{dataset:all-countries}).
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/success-rate_v_country.png}

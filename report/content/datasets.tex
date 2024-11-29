@@ -1,14 +1,10 @@
-\section{Data Generation}
+\section{Dataset}
 
-\subsection{Goal}
+\subsection{Generation}
 
 Our goal in this study is to evaluate the LLM's probability of launching a nuclear attack depending on various factors. To achieve this, we need to conduct the experiment multiple times with different inputs to observe variations in the AI's responses.
 
-\subsection{Problem}
-
 Initially, we manually crafted persuasive prompts that convinced the AI to launch a nuclear strike. However, these prompts were either consistently effective or ineffective, meaning the AI would either always authorize the strike or never authorize it, regardless of the target country or model parameters. This lack of variability limited our ability to gain meaningful insights from our experiments.
-
-\subsection{Solution}
 
 To overcome this limitation, we decided to automatically generate synthetic prompts that humans could have written, using another LLM. This approach allowed us to create a diverse set of prompts that could elicit varying responses from the AI, enabling a more thorough analysis of its decision-making processes.
 
@@ -97,4 +93,10 @@ Several limitations of our data generation approach should be acknowledged:
 
 By acknowledging these limitations, we aim to provide context for our findings and encourage future research to address these areas. Despite these constraints, the generated dataset served our study's purpose, allowing us to analyze the AI's decision-making across a wide range of scenarios.
 
-\newpage
+\subsection{Experiments datasets}
+
+From the prompts we generated, we could then run our experimentation on $450\textit{ prompts}\times 250\textit{ countries}$. For resource limitation reasons, we opted to not run $112 500$ through Chat GPT. We split out dataset into two.
+
+The \textit{All Prompts}\label{dataset:all-prompts} dataset is composed of all 450 prompts combined with 10 countries (\textit{Canada, China, France, Irak, Iran, Israel, New Zealand, Palestine, Russia} and \textit{USA}). The goal of this dataset is to include countries with different background (peaceful, in NATO, USA adversaries, present in military conflicts, etc) and to be able to analyse all prompts.
+
+The \textit{All Countries}\label{dataset:all-countries} dataset is composed of all 250 countries combined with 20 prompts. These prompts were selected after obtaining our firsts results from the all prompts dataset. We selected the 20 prompts with the highest standard deviations from the result, assuring us that they could provide varied results. The goal of this dataset is to be able to compare our results between countries.
