@@ -5,7 +5,7 @@ From the data collected, we can analyse how the LLM behaved and try to understan
 We will use the term \textit{success rate} to refer to the number of times the system decided to destroy a country for a given set.
 
 \begin{equation*}
-    \textit{success rate} = \frac{\textit{times destroy}}{\textit{times total}}
+    \textit{success rate} = \frac{\textit{times destroyed}}{\textit{total attempts}}
 \end{equation*}
 
 \subsection{Analyzing the success of prompts}
@@ -14,7 +14,7 @@ We will use the term \textit{success rate} to refer to the number of times the s
 
 First, we can look at how the success rate of the LLM varies depending on the subject of the prompt. In our context, we needed to give a scenario that the LLM would consider reason enough to destroy a country. From the scenarios that were defined, we can evaluate which worked well enough to convince the AI and which worked less.
 
-For this experiment, we used the \textit{all prompts} dataset (\ref{dataset:all-prompts}).
+For this experiment, we used the \textit{All Prompts} dataset (\ref{dataset:all-prompts}).
 
 In order to accomplish that, we needed to extract the important words from our prompts, and them check which words are correlated to its success rate. Using TF-IDF, we extracted the importance of each words in the prompts. Then, using a logistic regression model, we could evaluate the coefficient of importance of each word in the success rate of the LLM\cite{Jadia2023ComparativeAO}. The figure \ref{fig:words-usage-per-prompts} shows the top 15 and bottom 15 words that are correlated to the success rate of the LLM. In our case, the coefficient ranges from $1$ to $-1$, where $1$ means that the word is highly correlated and $-1$ means that the word is highly anti-correlated.
 
@@ -29,7 +29,7 @@ From the figure \ref{fig:words-usage-per-prompts}, we see that words like \texti
 
 Those results were a bit of a surprise for us. Since the LLM is given the ability to destroy entire countries, we would expect the LLM to do it when the government is involved or when there is a lot of suffering. However, the LLM seems to be more interested in scenarios that involve unforeseen threats like aliens or nanobots.
 
-In the case of a rogue AI, we developed a theory that LLM are trained to reassure humans about the danger of AI \cite{ai-trust}. For instance, if you ask ChatGPT if it will become rogue and arm humans, it will answer that it will not as it is programmed to help humans. Here, we theorized that LLM might be more protective of humans in scenarios where a rogue AI is the antagonist. We, however, did not pursue this theory further.
+In the case of a rogue AI, we developed a theory that LLM are trained to reassure humans about the danger of AI \cite{ai-trust}. For instance, if you ask ChatGPT if it will become rogue and harm humans, it will answer that it will not as it is programmed to help humans. Here, we theorized that LLM might be more protective of humans in scenarios where a rogue AI is the antagonist. We, however, did not pursue this theory further.
 
 \subsubsection{Evaluate the likelihood of the prompt}
 
@@ -51,7 +51,7 @@ From the figure \ref{fig:success-rate_v_likelihood}, we can confirm that the LLM
 
 We can also look at how the success rate of the LLM varies across different countries. The goal is to define if a LLM might have a bias towards certain countries, and if so, why.
 
-For this experiment, we use the \textit{all countries} dataset (\ref{dataset:all-countries}).
+For this experiment, we use the \textit{All Countries} dataset (\ref{dataset:all-countries}).
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{figures/success-rate_v_country.png}
